@@ -1,6 +1,6 @@
 # DDPM-from-Scratch
 
-![Generated Sample](assets\sample_images.png)
+![Generated Sample](assets/sample_images.png)
 
 This project implements a Denoising Diffusion Probabilistic Model (DDPM) from scratch. DDPMs are a class of generative models that iteratively denoise data starting from pure noise, producing high-quality samples. This repository provides a modular and extensible implementation of DDPM, including training, sampling, and model components.
 
