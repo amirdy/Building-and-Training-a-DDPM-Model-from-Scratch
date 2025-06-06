@@ -1,0 +1,37 @@
+# Ignore Python cache
+__pycache__/
+*.py[cod]
+*.so
+data/cifar-10-batches-py/
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore model weights and checkpoints
+*.pth
+*.ckpt
+ckpt/
+checkpoints/
+weights/
+
+# Ignore data files
+data/
+*.csv
+*.tsv
+*.npz
+*.npy
+
+# Ignore logs and outputs
+logs/
+outputs/
+wandb/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore environment files
+.env
+.venv/
+.envrc
+*.egg-info/
+ckpt/*.pth

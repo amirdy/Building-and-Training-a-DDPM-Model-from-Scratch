@@ -4,19 +4,19 @@ A PyTorch implementation of Denoising Diffusion Probabilistic Models (DDPM) from
 
 <div align="center">
 
-<img src="assets/1.png" alt="Generated Sample"  >
-<img src="assets/2.png" alt="Generated Sample"  >
-<img src="assets/3.png" alt="Generated Sample" >
-<img src="assets/4.png" alt="Generated Sample"  >
-<img src="assets/5.png" alt="Generated Sample"  >
-<img src="assets/6.png" alt="Generated Sample" >
-<img src="assets/7.png" alt="Generated Sample"  >
-<img src="assets/8.png" alt="Generated Sample"  >
-<img src="assets/9.png" alt="Generated Sample"  >
-<img src="assets/10.png" alt="Generated Sample"  >
-<img src="assets/11.png" alt="Generated Sample"  >
-<img src="assets/12.png" alt="Generated Sample"  >
-<img src="assets/14.png" alt="Generated Sample"  >
+<img src="assets/ddpm_1.png" alt="Generated Sample"  >
+<img src="assets/ddpm_2.png" alt="Generated Sample"  >
+<img src="assets/ddpm_3.png" alt="Generated Sample" >
+<img src="assets/ddpm_4.png" alt="Generated Sample"  >
+<img src="assets/ddpm_5.png" alt="Generated Sample"  >
+<img src="assets/ddpm_6.png" alt="Generated Sample" >
+<img src="assets/ddpm_7.png" alt="Generated Sample"  >
+<img src="assets/ddpm_8.png" alt="Generated Sample"  >
+<img src="assets/ddpm_9.png" alt="Generated Sample"  >
+<img src="assets/ddpm_10.png" alt="Generated Sample"  >
+<img src="assets/ddpm_11.png" alt="Generated Sample"  >
+<img src="assets/ddpm_12.png" alt="Generated Sample"  >
+<img src="assets/ddpm_14.png" alt="Generated Sample"  >
 
 </div>
 
@@ -146,9 +146,9 @@ DDPM-from-Scratch/
 
 The implementation uses a UNet-based architecture with:
 - Residual blocks
-- Linear attention mechanisms
+- Linear attention mechanisms (to reduce both time and space complexity)
 - Configurable channel multipliers
-- Time embedding
+- Time embedding (sinusoidal positional embedding)
 - Skip connections
 
 ## Training Results
