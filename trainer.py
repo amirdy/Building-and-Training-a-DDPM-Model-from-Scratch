@@ -122,31 +122,13 @@ class Trainer:
                     temp = temp[0,:,:,:].permute(1, 2, 0).cpu().numpy().astype(np.uint8)
                     images.append(temp)
 
-        # print("Sample min/max:", x.min().item(), x.max().item())
-            
-            # Convert to image
-        # self.plot_image_grid(images[-9:], rows=3, cols=3)
 
         image_recovered = ((x + 1) / 2)
         image_recovered = image_recovered.clamp(0, 1)
         image_recovered = image_recovered * 255.
         image_recovered_np = image_recovered[0,:,:,:].permute(1, 2, 0).cpu().numpy().astype(np.uint8)
         pil_img = Image.fromarray(image_recovered_np)
-        pil_img.save("sample.png")
-
-    def plot_image_grid(self, images, rows=3, cols=3):
-        fig, axes = plt.subplots(rows, cols, figsize=(cols * 2.5, rows * 2.5))
-
-        for i, ax in enumerate(axes.flat):
-            if i < len(images):
-                ax.imshow(images[i])
-                ax.axis('off')
-            else:
-                ax.remove()
-    
-        plt.tight_layout()
-        plt.savefig("sample.png", dpi=300)
-        plt.show()
+        pil_img.save("ddpm_sample.png")
 
 
     def ddim_sample(self, num_steps=50,save_path="ddim_sample.png"):
@@ -190,92 +172,6 @@ class Trainer:
             x_img = ((x + 1) / 2).clamp(0, 1) * 255
             img_np = x_img[0].permute(1, 2, 0).cpu().numpy().astype(np.uint8)
             Image.fromarray(img_np).save(save_path)
-            print(f"[DDIM] Saved image to {save_path}")
-
-    def generate_and_plot_samples(self, num_samples=90, img_size=32):
-        """
-        Generates `num_samples` images using the diffusion model and plots them in a grid.
-        Each image will be of shape (img_size x img_size).
-        """
-        self.model.eval()
-        samples = []
-
-        with torch.no_grad():
-            for _ in range(num_samples):
-                x = torch.randn((1, self.config.in_channels, img_size, img_size)).to(self.device)
-                
-                for t in reversed(range(self.config.num_timesteps)):
-                    t_tensor = torch.tensor([t]).unsqueeze(0).to(self.device)
-                    predicted_noise = self.model(x, t_tensor)
-                    
-                    alpha_t = self.noise_schedular.alphas[t]
-                    alpha_bar_t = self.noise_schedular.alpha_bars[t]
-                    alpha_bar_prev = self.noise_schedular.alpha_bars[t - 1] if t > 0 else torch.tensor(1.0).to(x.device)
-                    beta_t = self.noise_schedular.betas[t]
-                    
-                    noise = torch.randn_like(x) if t > 0 else torch.zeros_like(x)
-                    mean = (1 / torch.sqrt(alpha_t)) * (x - ((1 - alpha_t) / torch.sqrt(1 - alpha_bar_t)) * predicted_noise)
-                    variance = ((1 - alpha_bar_prev) / (1 - alpha_bar_t)) * beta_t if t > 0 else 0
-                    variance = torch.as_tensor(variance, device=x.device, dtype=x.dtype)
-                    x = mean + torch.sqrt(variance) * noise
-                
-                # Post-process and collect the sample
-                x_image = ((x + 1) / 2).clamp(0, 1) * 255.
-                img_np = x_image[0].permute(1, 2, 0).cpu().numpy().astype(np.uint8)
-                samples.append(img_np)
-
-        # Plot all samples in a 9x10 grid
-        rows, cols = 9, 10
-        fig, axes = plt.subplots(rows, cols, figsize=(cols * 1.5, rows * 1.5))
-        for i, ax in enumerate(axes.flat):
-            if i < len(samples):
-                ax.imshow(samples[i])
-                ax.axis('off')
-        plt.tight_layout()
-        plt.savefig("grid_samples.png", dpi=300)
-        plt.show()
-
-
-    def generate_and_plot_samples_2(self, num_samples=90, img_size=32):
-        """
-        Generate `num_samples` images in a batch and plot them in a 5x6 grid.
-        """
-        self.model.eval()
-        config = self.config
-        sched = self.noise_schedular
-
-        with torch.no_grad():
-            x = torch.randn((num_samples, config.in_channels, img_size, img_size), device=self.device)
-
-            for t in reversed(range(config.num_timesteps)):
-                t_tensor = torch.full((num_samples, 1), t, device=self.device, dtype=torch.long)
-                predicted_noise = self.model(x, t_tensor)
-
-                alpha_t = sched.alphas[t]
-                alpha_bar_t = sched.alpha_bars[t]
-                alpha_bar_prev = sched.alpha_bars[t - 1] if t > 0 else torch.tensor(1.0, device=self.device)
-                beta_t = sched.betas[t]
-
-                noise = torch.randn_like(x) if t > 0 else torch.zeros_like(x)
-                mean = (1 / torch.sqrt(alpha_t)) * (x - ((1 - alpha_t) / torch.sqrt(1 - alpha_bar_t)) * predicted_noise)
-                variance = ((1 - alpha_bar_prev) / (1 - alpha_bar_t)) * beta_t if t > 0 else 0.0
-                variance = torch.as_tensor(variance, device=x.device, dtype=x.dtype)
-                x = mean + torch.sqrt(variance) * noise
-
-            x = ((x + 1) / 2).clamp(0, 1) * 255
-            x = x.permute(0, 2, 3, 1).cpu().numpy().astype(np.uint8)
-
-        # Plot in 5x6 grid
-        rows, cols = 9, 10
-        fig, axes = plt.subplots(rows, cols, figsize=(cols * 2, rows * 2))
-        for i, ax in enumerate(axes.flat):
-            ax.imshow(x[i])
-            ax.axis("off")
-
-        plt.tight_layout()
-        plt.savefig("grid_samples.png", dpi=300)
-        plt.show()
-
 
 
     def train(self):

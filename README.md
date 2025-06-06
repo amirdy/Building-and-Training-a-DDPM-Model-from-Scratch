@@ -1,7 +1,36 @@
 # DDPM-from-Scratch
+<div align="center">
 
-<img src="assets/sample_images.png" alt="Generated Sample" width="400">
 
+### Static Images
+<img src="assets/1.png" alt="Generated Sample"  >
+<img src="assets/2.png" alt="Generated Sample"  >
+<img src="assets/3.png" alt="Generated Sample" >
+<img src="assets/4.png" alt="Generated Sample"  >
+<img src="assets/5.png" alt="Generated Sample"  >
+<img src="assets/6.png" alt="Generated Sample" >
+<img src="assets/7.png" alt="Generated Sample"  >
+<img src="assets/8.png" alt="Generated Sample"  >
+<img src="assets/9.png" alt="Generated Sample"  >
+<img src="assets/10.png" alt="Generated Sample"  >
+<img src="assets/11.png" alt="Generated Sample"  >
+<img src="assets/12.png" alt="Generated Sample"  >
+<img src="assets/14.png" alt="Generated Sample"  >
+
+<img src="assets/sample1.gif" alt="Generated Sample" width=70>
+<img src="assets/sample2.gif" alt="Generated Sample" width=70>
+<img src="assets/sample3.gif" alt="Generated Sample" width=70>
+<img src="assets/sample4.gif" alt="Generated Sample" width=70>
+<img src="assets/sample5.gif" alt="Generated Sample" width=70>
+<img src="assets/sample6.gif" alt="Generated Sample" width=70>
+<img src="assets/sample7.gif" alt="Generated Sample" width=70>
+<img src="assets/sample8.gif" alt="Generated Sample" width=70>
+<img src="assets/sample9.gif" alt="Generated Sample" width=70>
+<img src="assets/sample10.gif" alt="Generated Sample" width=70>
+<img src="assets/sample11.gif" alt="Generated Sample" width=70>
+<img src="assets/sample12.gif" alt="Generated Sample" width=70>
+
+</div>
 This project implements a Denoising Diffusion Probabilistic Model (DDPM) from scratch. DDPMs are a class of generative models that iteratively denoise data starting from pure noise, producing high-quality samples. This repository provides a modular and extensible implementation of DDPM, including training, sampling, and model components.
 
 ## Features
@@ -21,20 +50,48 @@ This project implements a Denoising Diffusion Probabilistic Model (DDPM) from sc
    ```bash
    pip install -r requirements.txt
    ```
+3. Extracts car images dataset:
+   ```bash
+   python -c "from torchvision.datasets import CIFAR10; CIFAR10(root='./data', download=True)"
+
+   python extract_cifar10_cars.py
+   ```
+## Dataset
+
+I used the cifar 10 dataset and only the car class.
+using 4250 as traning and 750 as valaftion samples.
 
 ## Usage
 ### Training
 To train the DDPM model:
 ```bash
-python train.py
+python main.py
 ```
 
 ### Sampling
+
+#### DDPM
 To generate samples from the trained model:
 ```bash
 python generate.py
 ```
 Generated images will be saved in the `assets/` folder.
+
+#### DDIM
+the DDIM sampling is done using 50 steps(instead of 1000 steps) and my results show that it generates samoek arround 20 timse faster than ddpm. 
+See some sample s in the image below:
+
+<img src="assets/ddim_1.png" alt="Generated Sample" >
+<img src="assets/ddim_2.png" alt="Generated Sample" >
+<img src="assets/ddim_3.png" alt="Generated Sample" >
+<img src="assets/ddim_4.png" alt="Generated Sample" >
+
+To generate sample using ddim sampler do this :
+
+```bash
+python generate.py
+```
+
 
 ## Code Structure
 - `trainer.py`: Contains the `Trainer` class, which handles:
