@@ -1,6 +1,8 @@
 # DDPM-from-Scratch
-<div align="center">
 
+A PyTorch implementation of Denoising Diffusion Probabilistic Models (DDPM) from scratch, focusing on image generation. This project provides a clean, modular, and well-documented implementation of DDPM with both DDPM and DDIM sampling methods.
+
+<div align="center">
 
 <img src="assets/1.png" alt="Generated Sample"  >
 <img src="assets/2.png" alt="Generated Sample"  >
@@ -34,90 +36,152 @@
 <img src="assets/sample12.gif" alt="Generated Sample" width=70>
 
 </div>
-This project implements a Denoising Diffusion Probabilistic Model (DDPM) from scratch. DDPMs are a class of generative models that iteratively denoise data starting from pure noise, producing high-quality samples. This repository provides a modular and extensible implementation of DDPM, including training, sampling, and model components.
 
 ## Features
-- Custom implementation of DDPM with a UNet backbone.
-- Noise scheduling and diffusion process.
-- Training and validation pipelines.
-- Sampling from the trained model to generate images.
-- Checkpointing and model saving during training.
+
+- 🎨 Custom implementation of DDPM with a UNet backbone
+- 🔄 Support for both DDPM and DDIM sampling methods
+- 📊 Comprehensive training and validation pipelines
+- 💾 Automatic checkpointing and model saving
+- 🎯 Configurable noise scheduling and diffusion process
+- 🚀 Efficient implementation with PyTorch
+- 📈 Training progress visualization
+- 🎮 Interactive sampling and generation
 
 ## Installation
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/DDPM-from-Scratch.git
    cd DDPM-from-Scratch
    ```
+
 2. Install the required dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-3. Extracts car images dataset:
-   ```bash
-   python -c "from torchvision.datasets import CIFAR10; CIFAR10(root='./data', download=True)"
 
+3. Download and prepare the dataset:
+   ```bash
+   # Download CIFAR-10 dataset
+   python -c "from torchvision.datasets import CIFAR10; CIFAR10(root='./data', download=True)"
+   
+   # Extract car images
    python extract_cifar10_cars.py
    ```
+
 ## Dataset
 
-I used the cifar 10 dataset and only the car class.
-using 4250 as traning and 750 as valaftion samples.
+The model is trained on the CIFAR-10 car class dataset:
+- Training set: 4,250 images
+- Validation set: 750 images
+- Image size: 32x32 pixels
+- Channels: 3 (RGB)
 
 ## Usage
+
 ### Training
-To train the DDPM model:
+
+To train the DDPM model with default configurations:
 ```bash
 python main.py
 ```
 
-### Sampling
+The training configuration can be modified in `config.py`:
+- Number of epochs
+- Learning rate
+- Batch size
+- Model architecture parameters
+- Noise scheduling parameters
 
-#### DDPM
-To generate samples from the trained model:
+### Generation
+
+#### DDPM Sampling
+To generate samples using the standard DDPM sampling method:
 ```bash
-python generate.py
+python generate.py ddpm
 ```
 Generated images will be saved in the `assets/` folder.
 
-#### DDIM
-the DDIM sampling is done using 50 steps(instead of 1000 steps) and my results show that it generates samoek arround 20 timse faster than ddpm. 
-See some sample s in the image below:
+#### DDIM Sampling
+The DDIM sampling method offers faster generation with fewer steps:
+- Uses 50 steps instead of 1000
+- Approximately 20x faster than DDPM
+- Maintains comparable quality
 
+To generate samples using DDIM:
+```bash
+python generate.py ddim
+```
+
+Sample DDIM generations:
 <img src="assets/ddim_1.png" alt="Generated Sample" >
 <img src="assets/ddim_2.png" alt="Generated Sample" >
 <img src="assets/ddim_3.png" alt="Generated Sample" >
 <img src="assets/ddim_4.png" alt="Generated Sample" >
 
-To generate sample using ddim sampler do this :
+> **Note**: Before generating samples, make sure you have a trained model checkpoint. The default path is set to "last_model.pth" in the generator.py script. You can modify this path in the script if your checkpoint is stored elsewhere.
 
-```bash
-python generate.py
+## Project Structure
+
+```
+DDPM-from-Scratch/
+├── models/
+│   ├── unet.py           # UNet architecture implementation
+│   ├── noise_scheduler.py # Noise scheduling logic
+│   ├── blocks.py         # Reusable model components
+│   ├── linear_attention.py # Linear attention implementation
+│   └── ddpm.py          # DDPM model wrapper
+├── dataset/
+│   ├── dataset.py       # Dataset class implementation
+│   └── data_module.py   # Data loading and preprocessing
+├── assets/              # Generated samples and visualizations
+├── config.py           # Configuration parameters
+├── main.py            # Training script
+├── generator.py       # Generation script
+└── trainer.py         # Training logic
 ```
 
+## Model Architecture
 
-## Code Structure
-- `trainer.py`: Contains the `Trainer` class, which handles:
-  - Training and validation loops.
-  - Noise addition using the `NoiseScheduler`.
-  - Sampling images from the trained model.
-  - Saving the best model checkpoint.
-- `models/`: Includes the UNet architecture, noise scheduler, and other building blocks.
-  - `unet.py`: Defines the UNet backbone for the DDPM.
-  - `noise_scheduler.py`: Implements the noise scheduling logic.
-  - `blocks.py`: Contains reusable components like residual blocks and up/down-sampling layers.
-  - `linear_attention.py`: Implements linear attention for efficient computation.
-  - `ddpm.py`: Wraps the UNet to form the DDPM model.
-- `dataset/`: Handles data loading and augmentation.
-  - `dataset.py`: Defines the dataset class for loading and preprocessing images.
-  - `data_module.py`: Manages data loaders for training and validation.
-- `config.py`: Contains configuration parameters for training and model setup.
+The implementation uses a UNet-based architecture with:
+- Residual blocks
+- Linear attention mechanisms
+- Configurable channel multipliers
+- Time embedding
+- Skip connections
 
-## What is DDPM?
-Denoising Diffusion Probabilistic Models (DDPMs) are generative models that learn to reverse a diffusion process. The diffusion process gradually adds noise to data, and the model learns to denoise it step by step, effectively generating new data samples. For more details, refer to the original paper: [Ho et al., 2020](https://arxiv.org/abs/2006.11239).
+## Training Results
+
+The model was trained for 2000 epochs on an A40 GPU (approximately 8.5 hours):
+- Final training loss: ~0.04
+- Final validation loss: ~0.04
+
+Training loss plot:
+<img src="assets/loss_plot.png" alt="Training Loss Plot" width=500>
+
+## Technical Details
+
+### Configuration Parameters
+- Input channels: 3 (RGB)
+- Image size: 32x32
+- Number of timesteps: 1000
+- Beta schedule: Linear from 1e-4 to 0.02
+- Learning rate: 1e-4
+- Batch size: 64
+- Base channels: 64
+- Channel multipliers: (1, 2, 4, 8, 16)
+- Number of attention heads: 8
 
 ## Contributing
-Contributions are welcome! Feel free to open issues or submit pull requests.
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
-This project is licensed under the MIT License.
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Original DDPM paper: [Ho et al., 2020](https://arxiv.org/abs/2006.11239)
+- DDIM paper: [Song et al., 2020](https://arxiv.org/abs/2010.02502)
