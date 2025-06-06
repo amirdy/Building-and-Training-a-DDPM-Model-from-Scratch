@@ -2,7 +2,6 @@
 <div align="center">
 
 
-### Static Images
 <img src="assets/1.png" alt="Generated Sample"  >
 <img src="assets/2.png" alt="Generated Sample"  >
 <img src="assets/3.png" alt="Generated Sample" >
@@ -16,6 +15,10 @@
 <img src="assets/11.png" alt="Generated Sample"  >
 <img src="assets/12.png" alt="Generated Sample"  >
 <img src="assets/14.png" alt="Generated Sample"  >
+
+</div>
+
+<div align="center">
 
 <img src="assets/sample1.gif" alt="Generated Sample" width=70>
 <img src="assets/sample2.gif" alt="Generated Sample" width=70>
