@@ -136,46 +136,45 @@ The model was trained for 2000 epochs on an A40 GPU (approximately 8.5 hours):
 - Final validation loss: ~0.04
 
 Training loss plot:
+
 <img src="assets/loss_plot.png" alt="Training Loss Plot" width=500>
 
 ## Generated Samples
 
+### DDPM Samples
+The following are samples generated using the standard DDPM method:
+
 <div align="center">
-
-<img src="assets/ddpm_1.png" alt="Generated Sample"  >
-<img src="assets/ddpm_2.png" alt="Generated Sample"  >
-<img src="assets/ddpm_3.png" alt="Generated Sample" >
-<img src="assets/ddpm_4.png" alt="Generated Sample"  >
-<img src="assets/ddpm_5.png" alt="Generated Sample"  >
-<img src="assets/ddpm_6.png" alt="Generated Sample" >
-<img src="assets/ddpm_7.png" alt="Generated Sample"  >
-<img src="assets/ddpm_8.png" alt="Generated Sample"  >
-<img src="assets/ddpm_9.png" alt="Generated Sample"  >
-<img src="assets/ddpm_10.png" alt="Generated Sample"  >
-<img src="assets/ddpm_11.png" alt="Generated Sample"  >
-<img src="assets/ddpm_12.png" alt="Generated Sample"  >
-<img src="assets/ddpm_14.png" alt="Generated Sample"  >
-
+<img src="assets/ddpm_1.png" alt="DDPM Sample" >
+<img src="assets/ddpm_2.png" alt="DDPM Sample" >
+<img src="assets/ddpm_3.png" alt="DDPM Sample" >
+<img src="assets/ddpm_4.png" alt="DDPM Sample" >
+<img src="assets/ddpm_5.png" alt="DDPM Sample" >
+<img src="assets/ddpm_6.png" alt="DDPM Sample" >
+<img src="assets/ddpm_7.png" alt="DDPM Sample" >
+<img src="assets/ddpm_8.png" alt="DDPM Sample" >
 </div>
 
 ### Diffusion Process Visualization
 The following GIFs show the gradual denoising process from random noise to the final generated image:
 
 <div align="center">
+<img src="assets/sample1.gif" alt="Diffusion Process" width=70>
+<img src="assets/sample2.gif" alt="Diffusion Process" width=70>
+<img src="assets/sample3.gif" alt="Diffusion Process" width=70>
+<img src="assets/sample4.gif" alt="Diffusion Process" width=70>
+<img src="assets/sample5.gif" alt="Diffusion Process" width=70>
+<img src="assets/sample6.gif" alt="Diffusion Process" width=70>
+</div>
 
-<img src="assets/sample1.gif" alt="Generated Sample" width=70>
-<img src="assets/sample2.gif" alt="Generated Sample" width=70>
-<img src="assets/sample3.gif" alt="Generated Sample" width=70>
-<img src="assets/sample4.gif" alt="Generated Sample" width=70>
-<img src="assets/sample5.gif" alt="Generated Sample" width=70>
-<img src="assets/sample6.gif" alt="Generated Sample" width=70>
-<img src="assets/sample7.gif" alt="Generated Sample" width=70>
-<img src="assets/sample8.gif" alt="Generated Sample" width=70>
-<img src="assets/sample9.gif" alt="Generated Sample" width=70>
-<img src="assets/sample10.gif" alt="Generated Sample" width=70>
-<img src="assets/sample11.gif" alt="Generated Sample" width=70>
-<img src="assets/sample12.gif" alt="Generated Sample" width=70>
+### DDIM Samples
+The following are samples generated using the DDIM method, which produces similar quality images in fewer steps:
 
+<div align="center">
+<img src="assets/ddim_1.png" alt="DDIM Sample" >
+<img src="assets/ddim_2.png" alt="DDIM Sample" >
+<img src="assets/ddim_3.png" alt="DDIM Sample" >
+<img src="assets/ddim_4.png" alt="DDIM Sample" >
 </div>
 
 ## Image Quality Variations
@@ -187,7 +186,6 @@ The generated images show varying levels of quality and noise. This is normal an
 - Increase model capacity
 - Use larger training dataset
 - Try different noise schedules
-- Experiment with DDIM sampling parameters
 
 ## Technical Details
 
