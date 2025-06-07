@@ -68,7 +68,7 @@ DDPM-from-Scratch/
 
 The implementation uses a UNet-based architecture with:
 - Residual blocks
-- Linear attention mechanisms (to reduce both time and space complexity)
+- Linear attention mechanisms (instead of standard attetion to reduce both time and space complexity)
 - Configurable channel multipliers
 - Time embedding (sinusoidal positional embedding)
 - Skip connections
@@ -178,6 +178,7 @@ The generated images show varying levels of quality and noise. This is normal an
 - Increase model capacity
 - Use larger training dataset
 - Try different noise schedules
+- Implement learning rate decay (e.g., cosine annealing) to help the model converge to better minima
 
 ## Technical Details
 
@@ -200,6 +201,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Original DDPM paper: [Ho et al., 2020](https://arxiv.org/abs/2006.11239)
 - DDIM paper: [Song et al., 2020](https://arxiv.org/abs/2010.02502)
+- Linear Attention paper: [Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention](https://arxiv.org/abs/2006.16236) by Katharopoulos et al.
 - Implementation reference: [The Annotated Diffusion Model](https://huggingface.co/blog/annotated-diffusion) by Hugging Face
   - Provided detailed explanations of the diffusion process
   - Helped with understanding the UNet architecture implementation
