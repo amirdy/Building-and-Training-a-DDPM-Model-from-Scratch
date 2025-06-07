@@ -117,15 +117,7 @@ To generate samples using DDIM:
 python generate.py ddim
 ```
 
-### DDIM Generated Samples
-The following are samples generated using the DDIM method, which produces similar quality images in fewer steps:
 
-<div align="center">
-<img src="assets/ddim_1.png" alt="DDIM Sample" >
-<img src="assets/ddim_2.png" alt="DDIM Sample" >
-<img src="assets/ddim_3.png" alt="DDIM Sample" >
-<img src="assets/ddim_4.png" alt="DDIM Sample" >
-</div>
 
 > **Note**: Before generating samples, make sure you have a trained model checkpoint. The default path is set to "ckpt/last_model.pth" in the generator.py script. You can modify this path in the script if your checkpoint is stored elsewhere.
 
@@ -208,3 +200,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Original DDPM paper: [Ho et al., 2020](https://arxiv.org/abs/2006.11239)
 - DDIM paper: [Song et al., 2020](https://arxiv.org/abs/2010.02502)
+- Implementation reference: [The Annotated Diffusion Model](https://huggingface.co/blog/annotated-diffusion) by Hugging Face
+  - Provided detailed explanations of the diffusion process
+  - Helped with understanding the UNet architecture implementation
+  - Guided the implementation of the noise scheduling
