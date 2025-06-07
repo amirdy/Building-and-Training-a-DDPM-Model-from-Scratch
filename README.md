@@ -2,6 +2,8 @@
 
 A PyTorch implementation of Denoising Diffusion Probabilistic Models (DDPM) from scratch, focusing on image generation. This project provides a clean, modular, and well-documented implementation of DDPM with both DDPM and DDIM sampling methods.
 
+> **Note**: If you're interested in the implementation details and references, make sure to check out the Acknowledgments section at the bottom of this README.
+
 ## Features
 
 - 🎨 Custom implementation of DDPM with a UNet backbone
