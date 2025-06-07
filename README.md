@@ -25,7 +25,7 @@ A PyTorch implementation of Denoising Diffusion Probabilistic Models (DDPM) from
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/DDPM-from-Scratch.git
+   git clone https://github.com/amirdy/Building-and-Training-a-DDPM-Model-from-Scratch-.git
    cd DDPM-from-Scratch
    ```
 
