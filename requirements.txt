@@ -1,0 +1,8 @@
+albucore==0.0.16
+albumentations==1.4.10
+einops
+matplotlib
+torch
+torchvision
+numpy
+Pillow 

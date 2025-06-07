@@ -1,8 +1,6 @@
-
 import torch
 from config import Config
 from dataset.data_module import DataModule
-from models.unet import UNet
 from trainer import Trainer
 from models.ddpm import DDPM
 import time
@@ -10,42 +8,39 @@ import os
 import random
 
 def main():
-    """ Main function to set up and train the GPT model. """
 
-    # Load dataset
-    images_dir = './cifar10_cars_64x64'
+    # Load and prepare the CIFAR-10 (cars) dataset
+    images_dir = './cifar10_cars'
     all_images = os.listdir(images_dir)
-    all_images = [f for f in os.listdir(images_dir) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+    all_images = [f for f in os.listdir(images_dir) if f.lower().endswith(('.png'))]
 
-    random.seed(42)  # For reproducibility
+    # Set random seed for reproducibility
+    random.seed(42)
 
-    # Shuffle and split
+    # Split dataset into training (85%) and validation (15%) sets
     random.shuffle(all_images)
-    split_idx = int(0.85 * len(all_images))  # 80% train, 20% val
-
+    split_idx = int(0.85 * len(all_images))
     train_images = all_images[:split_idx]
     val_images = all_images[split_idx:]
-    print(len(train_images), len(val_images))
-    # Set the device
+    print(f"Training images: {len(train_images)}, Validation images: {len(val_images)}")
+
+    # Configure device (GPU if available, otherwise CPU)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f'Training on {device}...')
 
-    # Initialize configurations
+    # Initialize model configuration
     config = Config()
-    # print(type(config.H))
 
-
-    # Initialize Data Module and Data Loaders
+    # Set up data loaders for training and validation
     dm = DataModule(config, train_images, val_images, images_dir)
     train_dataloader = dm.train_dataloader()
     val_dataloader = dm.val_dataloader()
 
-    # Create the GPT model
+    # Initialize the DDPM model
     model = DDPM(config)
-    model.to(device) # Move the model to the device
+    model.to(device)  # Move model to appropriate device
 
-
-    # Create the trainer
+    # Initialize the trainer with model and data loaders
     trainer = Trainer(
         config = config,
         train_dataloader = train_dataloader,
@@ -53,8 +48,9 @@ def main():
         ddpm = model,
         device = device
     )
+
+    # Start training process
     print('Start training')
-    # Start training
     start_time = time.time()
     trainer.train()
     end_time = time.time()

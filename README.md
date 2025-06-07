@@ -1,4 +1,4 @@
-# DDPM-from-Scratch
+# Building and Training a DDPM Model from Scratch
 
 A PyTorch implementation of Denoising Diffusion Probabilistic Models (DDPM) from scratch, focusing on image generation. This project provides a clean, modular, and well-documented implementation of DDPM with both DDPM and DDIM sampling methods.
 
@@ -120,7 +120,7 @@ Sample DDIM generations:
 <img src="assets/ddim_3.png" alt="Generated Sample" >
 <img src="assets/ddim_4.png" alt="Generated Sample" >
 
-> **Note**: Before generating samples, make sure you have a trained model checkpoint. The default path is set to "last_model.pth" in the generator.py script. You can modify this path in the script if your checkpoint is stored elsewhere.
+> **Note**: Before generating samples, make sure you have a trained model checkpoint. The default path is set to "ckpt/last_model.pth" in the generator.py script. You can modify this path in the script if your checkpoint is stored elsewhere.
 
 ## Project Structure
 

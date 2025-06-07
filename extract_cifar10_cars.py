@@ -6,7 +6,7 @@ CAR_LABEL = 1
 
 # Load dataset
 dataset = CIFAR10(root='./data', train=True, download=True)
-output_dir = 'cifar10'
+output_dir = 'cifar10_cars'
 os.makedirs(output_dir, exist_ok=True)
 
 # Save only car images
@@ -16,3 +16,4 @@ for idx, (img, label) in enumerate(dataset):
         img.save(os.path.join(output_dir, f"{count:05d}_{label}.png"))
         count += 1
 
+print(f"Extracted {count} car images to {output_dir}")

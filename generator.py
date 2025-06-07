@@ -1,14 +1,11 @@
 import torch
-import argparse  # Add this import
+import argparse  
 from config import Config
-from dataset.data_module import DataModule
-from models.unet import UNet
 from trainer import Trainer
 from models.ddpm import DDPM
 
 
 def main():
-    """ Main function to set up and train the GPT model. """
     
     # Set up argument parser
     parser = argparse.ArgumentParser()
@@ -24,9 +21,9 @@ def main():
 
     # Create the model  
     model = DDPM(config)
-    model_path = "/content/last_model_sob.pth"
-    model.to(device)
+    model_path = "/ckpt/last_model.pth"
     model.load_state_dict(torch.load(model_path))
+    model.to(device)
     model.eval()
 
     # Create the trainer
@@ -34,7 +31,7 @@ def main():
         config=config,
         train_dataloader=None,
         val_dataloader=None,
-        ddpm=model,  # Note: You might want to rename this parameter
+        ddpm=model, 
         device=device
     )
     
@@ -44,7 +41,6 @@ def main():
     else:  # ddim
         trainer.ddim_sample()  
 
-    trainer.sample()
 
 if __name__ == "__main__":
     main()
