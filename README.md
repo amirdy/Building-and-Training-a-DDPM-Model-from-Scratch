@@ -106,7 +106,7 @@ To generate samples using the standard DDPM sampling method:
 ```bash
 python generate.py ddpm
 ```
-Generated images will be saved in the `assets/` folder.
+
 
 #### DDIM Sampling
 The DDIM sampling method offers faster generation with fewer steps:
