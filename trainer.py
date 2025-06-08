@@ -320,7 +320,7 @@ class Trainer:
                 self._save_checkpoint()
             
             # Print progress and save checkpoint
-            print(f'Epoch {epoch + 1}, train loss: {np.mean(train_loss):.4f}, val loss: {np.mean(val_loss):.4f}')
+            print(f'Epoch {epoch + 1}, train loss: {train_loss:.4f}, val loss: {val_loss:.4f}')
             torch.save(self.model.state_dict(), './ckpt/last_model.pth')
             
             # Generate samples periodically to monitor progress
